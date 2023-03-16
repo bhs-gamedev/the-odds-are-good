@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Attack : Ability
 {
-    // Start is called before the first frame update
-    void Start()
+    public Attack(Entity e): base(e)
     {
-        
+        abilityName = "Attack";
+        canTargetAlly = false;
+        canTargetOpponent = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+        target.Damage(entity.value);
     }
 }

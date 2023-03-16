@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Heal : Ability
 {
-    // Start is called before the first frame update
-    void Start()
+    public Heal(Entity e): base(e)
     {
-        
+        abilityName = "Heal";
+        canTargetAlly = true;
+        canTargetOpponent = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+        target.Heal(entity.value);
     }
 }

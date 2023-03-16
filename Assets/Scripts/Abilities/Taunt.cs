@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Taunt : Ability
 {
-    // Start is called before the first frame update
-    void Start()
+    public Taunt(Entity e): base(e)
     {
-        
+        abilityName = "Taunt";
+        canTargetAlly = false;
+        canTargetOpponent = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+        if (target.selectedAbility != null)
+        {
+            target.selectedAbility.target = entity;
+        }
     }
 }

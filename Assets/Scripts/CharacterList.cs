@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
+
+
+[System.Serializable]
+public class AbilitySelectedEvent: UnityEvent<Ability> {}
+
 
 public class CharacterList : MonoBehaviour
 {
@@ -10,17 +16,17 @@ public class CharacterList : MonoBehaviour
     GameObject characterButton;
     [SerializeField]
     GameObject abilityButton;
-    [SerializeField]
-    GameObject targetButton;
 
+    [SerializeField] GameObject abilityList;
+    [SerializeField] GameObject characterList;
 
-    [SerializeField]
-    GameObject abilityList;
-    GameObject targetList;
+    GameManager gameManager;
+    public AbilitySelectedEvent abilitySelected = new AbilitySelectedEvent();
+
     public void Clear()
     {
         abilityList.SetActive(false);
-        foreach (Transform child in transform)
+        foreach (Transform child in characterList.transform)
         {
             Destroy(child.gameObject);
         }
@@ -35,38 +41,20 @@ public class CharacterList : MonoBehaviour
 
     public void AddCharacter(Entity character)
     {
-        GameObject button = Instantiate(characterButton, transform);
+        GameObject button = Instantiate(characterButton, characterList.transform);
         button.transform.GetChild(0).GetComponent<TMP_Text>().text = character.name;
         button.GetComponent<Button>().onClick.AddListener(delegate{ShowAbilities(character);});
     }
 
     void ShowAbilities(Entity character)
     {
-        foreach (Transform child in abilityList.transform)
-        {
-            Destroy(child.gameObject);
-        }
         ClearAbilityList();
         foreach (Ability ability in character.abilities)
         {
-            GameObject button = Instantiate(abilityButton, transform);
-            button.transform.GetChild(0).GetComponent<TMP_Text>().text = character.name;
-            button.GetComponent<Button>().onClick.AddListener(delegate{ShowAbilities(character);});
+            GameObject button = Instantiate(abilityButton, abilityList.transform);
+            button.transform.GetChild(0).GetComponent<TMP_Text>().text = ability.abilityName;
+            button.GetComponent<Button>().onClick.AddListener(delegate{abilitySelected.Invoke(ability);});
         }
         abilityList.SetActive(true);
-    }
-
-    void SetAbility(Entity character, Ability ability)
-    {
-        character.selectedAbility = ability;
-        if (ability.targetType != TargetType.None)
-        {
-            ShowTargetSelector(ability);
-        }
-    }
-
-    void ShowTargetSelector(Ability ability)
-    {
-
     }
 }

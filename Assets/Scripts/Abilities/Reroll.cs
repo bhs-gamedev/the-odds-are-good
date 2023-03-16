@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Reroll : Ability
 {
-    // Start is called before the first frame update
-    void Start()
+    public Reroll(Entity e): base(e)
     {
-        
+        abilityName = "Reroll";
+        canTargetAlly = true;
+        canTargetOpponent = true;
+        priority = 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Execute()
     {
-        
+        target.Roll();
     }
 }

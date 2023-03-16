@@ -8,16 +8,7 @@ public class Entity : MonoBehaviour
     public int health = 10;
     public Ability[] abilities;
     public Ability selectedAbility;
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
+    public EntityUI ui;
 
     public void Damage(int amount)
     {
@@ -29,13 +20,29 @@ public class Entity : MonoBehaviour
         health += amount;
     }
 
-    public bool CanAct()
+    public bool IsAlive()
     {
         return health > 0;
+    }
+
+    public bool CanAct()
+    {
+        return IsAlive();
     }
 
     public void Roll()
     {
         value = Random.Range(1, 6);
+    }
+
+    public void Execute()
+    {
+        if (selectedAbility != null)
+        {
+            selectedAbility.Execute();
+            selectedAbility = null;
+        }
+        value = 0;
+
     }
 }
