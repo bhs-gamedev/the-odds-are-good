@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     CharacterList characterList;
     [SerializeField] GameObject BattleUI;
     [SerializeField] GameObject entityUI;
+    [SerializeField] GameObject pauseMenu;
 
     void Start()
     {
@@ -179,6 +180,23 @@ public class GameManager : MonoBehaviour
     void EndBattle()
     {
 
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pauseMenu.SetActive(true);
+    }
+
+    public void Unpause()
+    {
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
+    }
+
+    public void OpenMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
 }
