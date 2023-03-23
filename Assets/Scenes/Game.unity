@@ -1784,7 +1784,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 301421992}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ExecuteTurn
+        m_MethodName: StartExecuteTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

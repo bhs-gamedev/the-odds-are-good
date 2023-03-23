@@ -116,7 +116,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ExecuteTurn()
+    public void StartExecuteTurn()
+    {
+        StartCoroutine(ExecuteTurn());
+    }
+
+    IEnumerator ExecuteTurn()
     {
         for (int priority = 1; priority <= 3; priority++)
         {
@@ -124,14 +129,28 @@ public class GameManager : MonoBehaviour
             {
                 if (character.CanAct() && character.selectedAbility != null && priority == character.selectedAbility.priority)
                 {
+                    Ability ability = character.selectedAbility;
+                    string animationName = "Base Layer." + ability.abilityName;
                     character.Execute();
+                    yield return null;
+                    while (character.animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) || character.animator.GetNextAnimatorStateInfo(0).IsName(animationName))
+                    {
+                        yield return null;
+                    }
                 }
             }
             foreach (Entity enemy in enemies)
             {
                 if (enemy.CanAct() && enemy.selectedAbility != null && priority == enemy.selectedAbility.priority)
                 {
+                    Ability ability = enemy.selectedAbility;
+                    string animationName = "Base Layer." + ability.abilityName;
                     enemy.Execute();
+                    yield return null;
+                    while (enemy.animator.GetCurrentAnimatorStateInfo(0).IsName(animationName) || enemy.animator.GetNextAnimatorStateInfo(0).IsName(animationName))
+                    {
+                        yield return null;
+                    }
                 }
             }
         }

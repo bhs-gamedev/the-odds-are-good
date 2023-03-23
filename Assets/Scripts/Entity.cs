@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour
     public Ability[] abilities;
     public Ability selectedAbility;
     public EntityUI ui;
-    [SerializeField] Animator animator;
+    [SerializeField] public Animator animator;
 
     public void Damage(int amount)
     {
@@ -45,6 +45,6 @@ public class Entity : MonoBehaviour
             selectedAbility = null;
         }
         value = 0;
-
     }
+
 }
