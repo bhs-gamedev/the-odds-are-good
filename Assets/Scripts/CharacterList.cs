@@ -43,7 +43,7 @@ public class CharacterList : MonoBehaviour
     {
         GameObject button = Instantiate(characterButton, characterList.transform);
         button.transform.GetChild(0).GetComponent<TMP_Text>().text = character.name;
-        button.GetComponent<Button>().onClick.AddListener(delegate{ShowAbilities(character);});
+        button.GetComponent<Button>().onClick.AddListener(delegate{if (character.CanAct()) ShowAbilities(character); else ClearAbilityList();});
     }
 
     void ShowAbilities(Entity character)

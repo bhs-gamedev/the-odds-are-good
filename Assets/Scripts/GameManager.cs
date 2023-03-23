@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     {
         characterList.abilitySelected.AddListener(SetAbility);
         Setup();
+        StartTurn();
     }
 
     GameObject InstantiateUI(GameObject obj, Vector3 position)
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
             characterList.AddCharacter(entity);
         }
 
-        int enemyCount = 5;
+        int enemyCount = 3;
 
         for (int i = 0; i < enemyCount; i++)
         {
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     void SetAbility(Ability ability)
     {
         ability.entity.selectedAbility = ability;
+        ability.target = null;
         if (ability.canTargetAlly)
         {
             foreach (Entity entity in characters)
@@ -109,6 +111,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
+            enemy.selectedAbility = null;
             enemy.Roll();
             enemy.SelectAbility();
             foreach (Entity character in characters)
@@ -139,6 +142,7 @@ public class GameManager : MonoBehaviour
                 if (enemy.CanAct() && enemy.selectedAbility != null && priority == enemy.selectedAbility.priority)
                 {
                     enemy.selectedAbility.Execute();
+                    enemy.selectedAbility = null;
                 }
             }
         }
@@ -165,6 +169,10 @@ public class GameManager : MonoBehaviour
         if (playerLost || playerWon)
         {
             EndBattle();
+        }
+        else
+        {
+            StartTurn();
         }
     }
 

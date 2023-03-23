@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 235214630784597412}
   - component: {fileID: 4310186647765205529}
   - component: {fileID: 1730555476912000790}
+  - component: {fileID: 3285776806677132032}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Untagged
@@ -100,3 +101,23 @@ MonoBehaviour:
   value: 0
   health: 10
   ui: {fileID: 0}
+--- !u!95 &3285776806677132032
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8968025442292897575}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
