@@ -60,7 +60,6 @@ public class GameManager : MonoBehaviour
                 if (ability.IsValidTarget(entity))
                 {
                     entity.ui.AllowTarget(true);
-                    Debug.Log(entity.gameObject.name);
                     entity.ui.targetButton.onClick.AddListener(delegate{ability.target = entity; HideAllTargets();});
                 }
             }
