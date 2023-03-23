@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 235214630784597412}
   - component: {fileID: 4310186647765205529}
   - component: {fileID: -38226491945894673}
+  - component: {fileID: 7832261518291166517}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3443396, g: 0.7530747, b: 1, a: 1}
+  m_Sprite: {fileID: 37959377, guid: 54f21efff6ddcdd5a87f83812abe3265, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,3 +100,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 0
   health: 10
+  ui: {fileID: 0}
+  animator: {fileID: 7832261518291166517}
+--- !u!95 &7832261518291166517
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8968025442292897575}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e7353147b1c49af0499824e62aaac28e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

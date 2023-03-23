@@ -37,10 +37,10 @@ public class GameManager : MonoBehaviour
         float spacing = 3;
         for (int i = 0; i < characterPrefabs.Length; i++)
         {
-            GameObject obj = Instantiate(characterPrefabs[i], new Vector3(-2, (-characterPrefabs.Length / 2 + i) * spacing, 0), Quaternion.identity);
+            GameObject obj = Instantiate(characterPrefabs[i], new Vector3(-8 + i * 2, (-characterPrefabs.Length / 2 + i) * spacing - 1, 0), Quaternion.identity);
             obj.name = characterPrefabs[i].name;
             Entity entity = obj.GetComponent<Entity>();
-            EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.up).GetComponent<EntityUI>();
+            EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.down).GetComponent<EntityUI>();
             ui.entity = entity;
             entity.ui = ui;
 
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
                 if (ability.IsValidTarget(entity))
                 {
                     entity.ui.AllowTarget(true);
+                    Debug.Log(entity.gameObject.name);
                     entity.ui.targetButton.onClick.AddListener(delegate{ability.target = entity; HideAllTargets();});
                 }
             }
@@ -123,16 +124,14 @@ public class GameManager : MonoBehaviour
             {
                 if (character.CanAct() && character.selectedAbility != null && priority == character.selectedAbility.priority)
                 {
-                    character.selectedAbility.Execute();
-                    character.selectedAbility = null;
+                    character.Execute();
                 }
             }
             foreach (Entity enemy in enemies)
             {
                 if (enemy.CanAct() && enemy.selectedAbility != null && priority == enemy.selectedAbility.priority)
                 {
-                    enemy.selectedAbility.Execute();
-                    enemy.selectedAbility = null;
+                    enemy.Execute();
                 }
             }
         }
@@ -192,7 +191,7 @@ public class GameManager : MonoBehaviour
             obj.name = enemyPrefabs[0].name + " " + i.ToString();
             Entity entity = obj.GetComponent<Entity>();
             enemies.Add(entity);
-            EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.up).GetComponent<EntityUI>();
+            EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.down).GetComponent<EntityUI>();
             ui.entity = entity;
             entity.ui = ui;
         }

@@ -9,6 +9,7 @@ public class Entity : MonoBehaviour
     public Ability[] abilities;
     public Ability selectedAbility;
     public EntityUI ui;
+    [SerializeField] Animator animator;
 
     public void Damage(int amount)
     {
@@ -40,6 +41,7 @@ public class Entity : MonoBehaviour
         if (selectedAbility != null)
         {
             selectedAbility.Execute();
+            animator.SetTrigger(selectedAbility.abilityName);
             selectedAbility = null;
         }
         value = 0;
