@@ -13,17 +13,17 @@ public class GameManager : MonoBehaviour
     GameObject[] characterPrefabs;
     [SerializeField]
     GameObject[] enemyPrefabs;
-    [SerializeField]
-    CharacterList characterList;
+    [SerializeField] CharacterList characterList;
     [SerializeField] GameObject BattleUI;
     [SerializeField] GameObject entityUI;
     [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject gameOverMenu;
 
     void Start()
     {
         characterList.abilitySelected.AddListener(SetAbility);
         Setup();
-        StartTurn();
+        StartBattle();
     }
 
     GameObject InstantiateUI(GameObject obj, Vector3 position)
@@ -45,18 +45,6 @@ public class GameManager : MonoBehaviour
 
             characters.Add(entity);
             characterList.AddCharacter(entity);
-        }
-
-        int enemyCount = 3;
-
-        for (int i = 0; i < enemyCount; i++)
-        {
-            GameObject obj = Instantiate(enemyPrefabs[0], new Vector3(2, (-enemyCount / 2 + i) * spacing, 0), Quaternion.identity);
-            Entity entity = obj.GetComponent<Entity>();
-            enemies.Add(entity);
-            EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.up).GetComponent<EntityUI>();
-            ui.entity = entity;
-            entity.ui = ui;
         }
     }
 
@@ -167,9 +155,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (playerLost || playerWon)
+        if (playerLost)
+        {
+            GameOver();
+        }
+        else if (playerWon)
         {
             EndBattle();
+            StartBattle();
         }
         else
         {
@@ -179,7 +172,34 @@ public class GameManager : MonoBehaviour
 
     void EndBattle()
     {
+        foreach (Enemy enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        enemies.Clear();
+    }
 
+    void StartBattle()
+    {
+        int enemyCount = 3;
+        float spacing = 3;
+
+        for (int i = 0; i < enemyCount; i++)
+        {
+            GameObject obj = Instantiate(enemyPrefabs[0], new Vector3(2, (-enemyCount / 2 + i) * spacing, 0), Quaternion.identity);
+            Entity entity = obj.GetComponent<Entity>();
+            enemies.Add(entity);
+            EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.up).GetComponent<EntityUI>();
+            ui.entity = entity;
+            entity.ui = ui;
+        }
+
+        StartTurn();
+    }
+
+    void GameOver()
+    {
+        gameOverMenu.SetActive(true);
     }
 
     public void Pause()
@@ -199,4 +219,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
     }
 
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene("Game");
+    }
 }
