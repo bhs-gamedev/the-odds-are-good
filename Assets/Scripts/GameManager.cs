@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < characterPrefabs.Length; i++)
         {
             GameObject obj = Instantiate(characterPrefabs[i], new Vector3(-2, (-characterPrefabs.Length / 2 + i) * spacing, 0), Quaternion.identity);
+            obj.name = characterPrefabs[i].name;
             Entity entity = obj.GetComponent<Entity>();
             EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.up).GetComponent<EntityUI>();
             ui.entity = entity;
@@ -174,6 +175,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Enemy enemy in enemies)
         {
+            Destroy(enemy.ui);
             Destroy(enemy);
         }
         enemies.Clear();
@@ -187,6 +189,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < enemyCount; i++)
         {
             GameObject obj = Instantiate(enemyPrefabs[0], new Vector3(2, (-enemyCount / 2 + i) * spacing, 0), Quaternion.identity);
+            obj.name = enemyPrefabs[0].name + " " + i.ToString();
             Entity entity = obj.GetComponent<Entity>();
             enemies.Add(entity);
             EntityUI ui = InstantiateUI(entityUI, entity.transform.position + Vector3.up).GetComponent<EntityUI>();

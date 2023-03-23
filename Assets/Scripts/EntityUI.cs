@@ -23,7 +23,7 @@ public class EntityUI : MonoBehaviour
             abilityText.text = entity.selectedAbility.abilityName;
             if (entity.selectedAbility.target)
             {
-                abilityText.text += " " + entity.selectedAbility.target.name;
+                abilityText.text += ": " + entity.selectedAbility.target.name;
             }
         }
     }
